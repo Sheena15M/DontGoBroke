@@ -6,4 +6,14 @@ request.onupgradeneeded = function(event) {
 
 request.onsuccess = function(event) {
     const db = target.result;
-}
+
+    if (navigator.onLine) {
+        checkDatabase();
+    }
+};
+
+request.onerror = function(event) {
+
+};
+
+function saveRecord(record) {}
