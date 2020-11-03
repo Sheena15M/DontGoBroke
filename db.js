@@ -16,4 +16,12 @@ request.onerror = function(event) {
 
 };
 
-function saveRecord(record) {}
+function saveRecord(record) {
+    const transaction = db.transaction(["pending"], "readwrite");
+
+    const pendingStore = transaction.objectStore("pending");
+
+}
+
+function checkDatabase() {}
+
