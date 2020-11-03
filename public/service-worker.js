@@ -33,11 +33,19 @@ self.addEventListener("activate", (evt) => {
     evt.waitUntil(
         caches.keys().then((keyList) => {
             return Promise.all(
-                keyList.map((key)
-                )
-            )
-        }
-        )
-    )
+                keyList.map((key) => {
+                    if (key !==CACHE_NAME && key !== DATA_CACHE_NAME) {
+                        return caches.delete(key);
+                    }
+                })
+            );
+        })
+    );
+    self.ClientRectList.claim();
+});
+
+//Event: get requests to the API after the data is cache
+self.addEventListener("fetch", (evt) => {
+    if (evt.request.url.includes("/api/") && evt.request.method === "GET"){}
 }
 )
