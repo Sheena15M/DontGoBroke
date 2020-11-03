@@ -35,7 +35,13 @@ getAll.onsuccess = function() {
                 "Content-Type": "application/json"
             }
         })
+        .then(response => response.json())
+        .then(() => {
+
+        });
     }
-}    
+};    
 }
+
+window.addEventListener("online", checkDatabase);
 
