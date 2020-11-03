@@ -46,6 +46,24 @@ self.addEventListener("activate", (evt) => {
 
 //Event: get requests to the API after the data is cache
 self.addEventListener("fetch", (evt) => {
-    if (evt.request.url.includes("/api/") && evt.request.method === "GET"){}
+    if (evt.request.url.includes("/api/") && evt.request.method === "GET"){
+        evt.respondWith(
+            caches
+            .open(DATA_CACHE_NAME)
+            .then((cache) => {
+                return fetch (evt.request)
+                .then((response) => {
+                    if (response.status === 200) {
+                        cache.put(evt.request, response.clone());
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    return cache.match (evt.request);
+                });
+            })
+            .catch((err) => console.log(err))
+        );
+    }
 }
 )
