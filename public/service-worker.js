@@ -16,3 +16,28 @@ const FILES_TO_CACHE = [
 const CACHE_NAME = "static-cache-v1";
 const DATA_CACHE_NAME = "data-cache-v1";
 
+//Event: add, wait, then return
+self.addEventListener("install", (evt) => {
+    evt.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(FILES_TO_CACHE);
+
+        })
+    );
+    //No waiting for it like in Hamilton
+    self.skipWaiting();
+});
+
+//Event: activate, wait, then out with the old
+self.addEventListener("activate", (evt) => {
+    evt.waitUntil(
+        caches.keys().then((keyList) => {
+            return Promise.all(
+                keyList.map((key)
+                )
+            )
+        }
+        )
+    )
+}
+)
