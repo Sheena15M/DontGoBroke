@@ -64,6 +64,12 @@ self.addEventListener("fetch", (evt) => {
             })
             .catch((err) => console.log(err))
         );
+        return;
     }
-}
-)
+    //Start offline
+    evt.respondWith(
+        caches.match(evt.request).then((response) => {
+            return response || fetch(evt.request);
+        })
+    );
+});
